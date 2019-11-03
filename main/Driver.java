@@ -25,14 +25,17 @@ public class Driver {
 	    String newpw1 = null;
         String pw1a = null, pw2a = null;
 
+        String username = "firstuser";
+        System.out.printf("Added user '%s'", username);
+
         // add the first new user, setting password
 	    try {
-			vault.addNewUser("firstuser", "asdf!9");
+			vault.addNewUser(username, "asdf!9");
 		} catch (InvalidUsernameException | InvalidPasswordException |
 				 DuplicateUserException e) {
 			System.err.println("Caught Exception: " + e.getMessage());
 		}
-
+/*
         // fail: try to add the first user, who's already in there
 	    try {
 			vault.addNewUser("firstuser", "asdf!9");
@@ -288,7 +291,7 @@ public class Driver {
 				| InvalidSiteException e) {
 			System.err.println("Caught Exception: " + e.getMessage());
 		}
-
+*/
 	}
 
 }
