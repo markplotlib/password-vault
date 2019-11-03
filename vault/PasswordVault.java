@@ -58,15 +58,15 @@ public class PasswordVault implements Vault {
         // --------------------
         // Exception checking
         // --------------------
-    	// The username is already in the vault
-		if (vaultKeyRing.containsKey(username))
-        	throw new DuplicateUserException();
         // The supplied username is invalid
         if (!username.matches(VALID_USERNAME))
         	throw new InvalidUsernameException();
         // The supplied password is invalid
         if (!password.matches(VALID_PASSWORD))
       	  	throw new InvalidPasswordException();
+        // The username is already in the vault
+		if (vaultKeyRing.containsKey(username))
+        	throw new DuplicateUserException();
 
         // add new user to vaultKeyRing
         vaultKeyRing.put(username, null);
