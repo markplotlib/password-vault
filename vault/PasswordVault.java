@@ -177,7 +177,7 @@ public class PasswordVault implements Vault {
         if (!vaultKeyRing.containsKey(username))
             throw new UserNotFoundException();
         // The user has no password associated with this site
-		if (!vaultKeyRing.get(username).containsKey(sitename))
+        if (!vaultKeyRing.get(username).containsKey(sitename))
             throw new SiteNotFoundException();
         // user is locked out due to too many incorrect password attempts
         if (failedLogins.get(username) >= MAX_LOGIN_ATTEMPTS)

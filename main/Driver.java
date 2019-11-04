@@ -32,119 +32,7 @@ public class Driver {
         // retrieve password for first site
         getOnePassword("firstuser", "asdf!9", "amazon");
         testRetrieveFailCases();
-        
-/*
-        // update password for second site
-	    try {
-			newpw1 = vault.updateSitePassword("firstuser", "asdf!9",
-											  "nordstrom");
-		} catch (SiteNotFoundException | UserNotFoundException | UserLockedOutException | PasswordMismatchException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
-	    System.out.println(newpw1);
 
-        // update password for second site
-	    try {
-			newpw1 = vault.updateSitePassword("firstuser", "asdf!9",
-											  "nordstrom");
-		} catch (SiteNotFoundException | UserNotFoundException | UserLockedOutException | PasswordMismatchException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
-	    System.out.println(newpw1);
-
-        // add a second user, setting password
-	    try {
-			vault.addNewUser("seconduser", "qwerty0#");
-		} catch (InvalidUsernameException | InvalidPasswordException |
-				 DuplicateUserException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
-
-        // add new site to second user
-	    try {
-			pw1a = vault.addNewSite("seconduser", "qwerty0#", "hotels");
-		} catch (DuplicateSiteException | UserNotFoundException |
-				 UserLockedOutException | PasswordMismatchException
-				| InvalidSiteException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
-
-        System.out.println(pw1a);
-
-
-
-
-        // fail: second user locked out from adding new site
-	    try {
-			pw2a = vault.addNewSite("seconduser", "qwerty0#", "kayak");
-		} catch (DuplicateSiteException | UserNotFoundException |
-				 UserLockedOutException | PasswordMismatchException
-				| InvalidSiteException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
-
-        // fail: second user locked out from retrieving password
-        try {
-			pw2a = vault.retrieveSitePassword("seconduser", "qwerty0#",
-												"hotels");
-		} catch (SiteNotFoundException | UserNotFoundException |
-				 UserLockedOutException | PasswordMismatchException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
-
-        // fail: site not found
-	    try {
-			pw2a = vault.updateSitePassword("seconduser", "qwerty0#",
-												"jimmyjohns");
-		} catch (SiteNotFoundException | UserNotFoundException |
-                 UserLockedOutException | PasswordMismatchException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
-
-        // fail: user not found
-	    try {
-			pw2a = vault.updateSitePassword("userjimmyjohn", "qwerty0#",
-												"bologna");
-		} catch (SiteNotFoundException | UserNotFoundException |
-                 UserLockedOutException | PasswordMismatchException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
-
-        // fail: bad password
-	    try {
-			pw2a = vault.updateSitePassword("firstuser", "asdf!9", "amazon");
-		} catch (SiteNotFoundException | UserNotFoundException |
-                 UserLockedOutException | PasswordMismatchException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
-
-        // fail: user locked out from updating password
-	    try {
-			pw2a = vault.updateSitePassword("seconduser", "qwerty0#",
-												"hotels");
-		} catch (SiteNotFoundException | UserNotFoundException |
-                 UserLockedOutException | PasswordMismatchException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
-
-        // fail: bad password
-	    try {
-			pw2a = vault.updateSitePassword("firstuser", "oogabooga8@",
-												"amazon");
-		} catch (SiteNotFoundException | UserNotFoundException |
-                 UserLockedOutException | PasswordMismatchException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
-
-        // fail: user locked out from adding new site
-        try {
-            pw2a = vault.addNewSite("seconduser", "qwerty0#", "redrobin");
-		} catch (DuplicateSiteException | UserNotFoundException |
-				 UserLockedOutException | PasswordMismatchException
-				| InvalidSiteException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
-*/
 	}
 
     private static void testAddUserFailCases() {
@@ -190,12 +78,32 @@ public class Driver {
 
         // catch PasswordMismatchException
         addOneUser("thirduser", "ASDFqwerty0#");
+        addOneSite("thirduser", "ASDFqwerty0#", "hotels");
         getOnePassword("thirduser", "wrongpw0#", "hotels");
 
         // catch UserLockedOutException
         getOnePassword("thirduser", "wrongpw0#", "hotels");
-        addOneSite("thirduser", "wrongpw0#", "hotels");
-        addOneSite("thirduser", "wrongpw0#", "hotels");
+        getOnePassword("thirduser", "wrongpw0#", "hotels");
+        getOnePassword("thirduser", "wrongpw0#", "hotels");
+    }
+
+    private static void testUpdateFailCases() {
+        System.out.println("\nExpected-Fail tests of updateSitePassword ...");
+        // catch SiteNotFoundException
+        setOnePassword("firstuser", "asdf!9", "hodor");
+
+        // catch UserNotFoundException
+        setOnePassword("userlouisxvi", "qwert123#$%", "buyinganewhead");
+
+        // catch PasswordMismatchException
+        addOneUser("fourthuser", "ASDFqwerty0#");
+        addOneSite("fourthuser", "ASDFqwerty0#", "hotels");
+        setOnePassword("fourthuser", "wrongpw0#", "hotels");
+
+        // catch UserLockedOutException
+        setOnePassword("fourthuser", "wrongpw0#", "hotels");
+        setOnePassword("fourthuser", "wrongpw0#", "hotels");
+        setOnePassword("fourthuser", "wrongpw0#", "hotels");
     }
 
     private static void addOneUser(String username, String password) {
@@ -207,7 +115,7 @@ public class Driver {
         } catch (InvalidUsernameException | InvalidPasswordException |
                  DuplicateUserException e) {
             System.err.println("Caught Exception (" + caseNum + "): "
-                 + e.getMessage());
+                             + e.getMessage());
         } finally {
             System.out.println();
         }
@@ -227,13 +135,32 @@ public class Driver {
                 | UserLockedOutException | PasswordMismatchException
                 | InvalidSiteException e) {
             System.err.println("Caught Exception (" + caseNum + "): "
-                 + e.getMessage());
+                             + e.getMessage());
         } finally {
             System.out.println();
         }
     }
 
     private static void getOnePassword(String username, String password,
+                                        String sitename) {
+        String encryptedPassword;
+        String caseNum = "case #" + ++testCaseCount;
+        System.out.printf(caseNum + ": Retrieving site password for '%s' " +
+            "for user '%s' => ", sitename, username);
+        try {
+            encryptedPassword = vault.retrieveSitePassword(username, password,
+                                                            sitename);
+            System.out.printf("password: %s.\n", encryptedPassword);
+        } catch (SiteNotFoundException | UserNotFoundException |
+                 UserLockedOutException | PasswordMismatchException e) {
+             System.err.println("Caught Exception (" + caseNum + "): "
+                              + e.getMessage());
+        } finally {
+            System.out.println();
+        }
+    }
+
+    private static void setOnePassword(String username, String password,
                                         String sitename) {
         String encryptedPassword;
         String caseNum = "case #" + ++testCaseCount;
