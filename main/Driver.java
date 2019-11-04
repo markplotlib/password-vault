@@ -46,6 +46,7 @@ public class Driver {
         addOneSite("othello", "ASDFqwerty0#", "hotels");
         setOnePassword("othello", "wrongpw0#", "hotels");
         setOnePassword("othello", "wrongpw0#", "hotels");
+        // This next attempt will reset the count to zero.
         setOnePassword("othello", "ASDFqwerty0#", "hotels");
         setOnePassword("othello", "wrongpw0#", "hotels");
         setOnePassword("othello", "wrongpw0#", "hotels");
