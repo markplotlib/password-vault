@@ -233,6 +233,24 @@ public class Driver {
         addOneSite("firstuser", "asdf!9", "abc123");
     }
 
+    private static void testRetrieveFailCases() {
+        System.out.println("\nExpected-Fail tests of retrieveSitePassword ...");
+        // catch SiteNotFoundException
+        getOnePassword("firstuser", "asdf!9", "boogieman");
+
+        // catch UserNotFoundException
+        getOnePassword("userhenryphilip", "qwert123#$%", "rei");
+
+        // catch PasswordMismatchException
+        addOneUser("thirduser", "ASDFqwerty0#");
+        getOnePassword("thirduser", "wrongpw0#", "hotels");
+
+        // catch UserLockedOutException
+        getOnePassword("thirduser", "wrongpw0#", "hotels");
+        addOneSite("thirduser", "wrongpw0#", "hotels");
+        addOneSite("thirduser", "wrongpw0#", "hotels");
+    }
+
     private static void addOneUser(String username, String password) {
         String caseNum = "case #" + ++testCaseCount;
         System.out.printf(caseNum + ": Adding user = '%s',\tpassword = '%s'.\n",
