@@ -21,7 +21,8 @@ public class Driver {
 
 
 	public static void testAddUser(String username, String password) {
-        System.out.printf("Added user '%s'\n", username);
+        System.out.printf("Adding: user = '%s',\tpassword = '%s'.\n",
+            username, password);
 	    try {
 			vault.addNewUser(username, password);
 		} catch (InvalidUsernameException | InvalidPasswordException |
@@ -33,36 +34,21 @@ public class Driver {
 	public static void main(String[] args) {
 
         // Strings for password testing
-	    String pw1 = null, pw2 = null, getpw1 = null, getpw2 = null;
-	    String newpw1 = null;
-        String pw1a = null, pw2a = null;
+	    // String pw1 = null, pw2 = null, getpw1 = null, getpw2 = null;
+	    // String newpw1 = null;
+        // String pw1a = null, pw2a = null;
 
         // add the first new user, setting password
         testAddUser( "firstuser", "asdf!9" );
 
         // catch InvalidUsernameException
-	    try {
-			vault.addNewUser("1234", "asdfasdf0&");
-		} catch (InvalidUsernameException | InvalidPasswordException |
-				 DuplicateUserException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
+        testAddUser("1234", "asdfasdf0&");
 
         // catch InvalidPasswordException
-	    try {
-			vault.addNewUser("userjoebob", "ok");
-		} catch (InvalidUsernameException | InvalidPasswordException |
-				 DuplicateUserException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
+       testAddUser("userjoebob", "ok");
 
         // catch DuplicateUserException
-	    try {
-			vault.addNewUser("firstuser", "asdf!9");
-		} catch (InvalidUsernameException | InvalidPasswordException |
-				 DuplicateUserException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
+		testAddUser("firstuser", "asdf!9");
 
 /*
         // add new site, returning generated password
