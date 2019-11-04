@@ -20,7 +20,7 @@ public class Driver {
     static Vault vault = new PasswordVault();
 
 
-	public static void testAddUser(String username, String password) {
+	private static void addOneUser(String username, String password) {
         System.out.printf("    Adding: user = '%s',\tpassword = '%s'.\n",
             username, password);
 	    try {
@@ -31,25 +31,40 @@ public class Driver {
 		}
     }
 
+    private static void addOneSite(String username, String password) {
+
+    }
+
+    private static void testAddUser() {
+        System.out.println("Executing tests of addNewUser...");
+        // add the first new user, setting password
+        addOneUser( "firstuser", "asdf!9" );
+
+        // catch InvalidUsernameException
+        addOneUser("1234", "asdfasdf0&");
+
+        // catch InvalidPasswordException
+        addOneUser("userjoebob", "ok");
+
+        // catch DuplicateUserException
+        addOneUser("firstuser", "asdf!9");
+
+    }
+
 	public static void main(String[] args) {
+
+        // testAddUser();
 
         // Strings for password testing
 	    // String pw1 = null, pw2 = null, getpw1 = null, getpw2 = null;
 	    // String newpw1 = null;
         // String pw1a = null, pw2a = null;
 
-        System.out.println("Executing tests of addNewUser...");
+
+
+
+        System.out.println("\nExecuting tests of addNewSite...");
         // add the first new user, setting password
-        testAddUser( "firstuser", "asdf!9" );
-
-        // catch InvalidUsernameException
-        testAddUser("1234", "asdfasdf0&");
-
-        // catch InvalidPasswordException
-        testAddUser("userjoebob", "ok");
-
-        // catch DuplicateUserException
-		testAddUser("firstuser", "asdf!9");
 
 /*
         // add new site, returning generated password
