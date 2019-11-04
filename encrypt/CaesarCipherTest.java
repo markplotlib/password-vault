@@ -24,6 +24,10 @@ public class CaesarCipherTest {
 	public void testConstructor() {
 		CaesarCipher cc = new CaesarCipher();
 		assertNotNull(cc);
+        CaesarCipher cc2 = new CaesarCipher();
+        assertNotSame(cc, cc2);
+        CaesarCipher cc3 = cc2;
+        assertSame(cc3, cc2);
 	}
 
 	/**
