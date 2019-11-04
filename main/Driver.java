@@ -18,11 +18,38 @@ import exceptions.*;
 public class Driver {
 
     static Vault vault = new PasswordVault();
+    // unique test case ID displayed
     private static int testCaseCount = 100;
+
+    private static void testAddUserFailCases() {
+        System.out.println("\nExpected-Fail tests of addNewUser...");
+        // catch InvalidUsernameException
+        addOneUser("1234", "asdfasdf0&");
+
+        // catch InvalidPasswordException
+        addOneUser("userjoebob", "ok");
+
+        // catch DuplicateUserException
+        addOneUser("firstuser", "asdf!9");
+    }
+
+    private static void testAddSiteFailCases() {
+        System.out.println("\nExpected-Fail tests of addNewSite...");
+
+        // catch
+//        addOneSite();
+
+        // catch
+//        addOneSite();
+
+        // catch
+//        addOneSite();
+
+    }
 
 	private static void addOneUser(String username, String password) {
         String caseNum = "case #" + ++testCaseCount;
-        System.out.printf(caseNum + ": Adding user = '%s',\tpassword = '%s'.",
+        System.out.printf(caseNum + ": Adding user = '%s',\tpassword = '%s'.\n",
             username, password);
 	    try {
 			vault.addNewUser(username, password);
@@ -37,8 +64,11 @@ public class Driver {
 
     private static void addOneSite(String username, String password,
     		String sitename) {
-        System.out.printf("case #%d: ", ++testCaseCount);
         String encryptedPassword;
+        String caseNum = "case #" + ++testCaseCount;
+        System.out.printf(caseNum + ": Adding user = '%s',\tpassword = '%s'.\n",
+            username, password);
+
         System.out.printf("    Adding site '%s' for user '%s' => ",
         		sitename, username);
         try {
@@ -48,48 +78,24 @@ public class Driver {
 		} catch (DuplicateSiteException | UserNotFoundException
 				| UserLockedOutException | PasswordMismatchException
 				| InvalidSiteException e) {
-            System.err.println("Caught Exception: " + e.getMessage());
+            System.err.println("Caught Exception (" + caseNum + "): "
+				 + e.getMessage());
+		} finally {
+			System.out.println();
 		}
-    }
-
-    private static void testAddSite() {
-        System.out.println("\nExecuting tests of addNewSite...");
-        // add the first new user, setting password
-        addOneSite("firstuser", "asdf!9", "amazon");
-
-        // add a second site, returning generated password
-
-        // catch
-//        addOneSite();
-
-        // catch
-//        addOneSite();
-
-        // catch
-//        addOneSite();
-
-    }
-
-    private static void testAddUser() {
-        System.out.println("Executing tests of addNewUser...");
-        // add the first new user, setting password
-        addOneUser( "firstuser", "asdf!9" );
-
-        // catch InvalidUsernameException
-        addOneUser("1234", "asdfasdf0&");
-
-        // catch InvalidPasswordException
-       addOneUser("userjoebob", "ok");
-
-        // catch DuplicateUserException
-       addOneUser("firstuser", "asdf!9");
-
     }
 
 	public static void main(String[] args) {
 
-        testAddUser();
-        testAddSite();
+        // add the first new user, setting password
+        addOneUser( "firstuser", "asdf!9" );
+    // testAddUserFailCases();
+
+        // add the first new user, setting password
+        addOneSite("firstuser", "asdf!9", "amazon");
+        // add a second site, returning generated password
+        addOneSite("firstuser", "asdf!9", "nordstrom");
+    // testAddSiteFailCases();
 
 /*
 
