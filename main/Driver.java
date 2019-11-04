@@ -22,24 +22,24 @@ public class Driver {
         // add the first new user, setting password
         addOneUser( "firstuser", "asdf!9" );
         // test all exceptions on this feature
-        testAddUserFailCases();
+        testAddUserExceptions();
 
         // add a first site, returning generated password
         addOneSite("firstuser", "asdf!9", "amazon");
         // repeat for another
         addOneSite("firstuser", "asdf!9", "nordstrom");
         // test all exceptions on this feature
-        testAddSiteFailCases();
+        testAddSiteExceptions();
 
         // retrieve password for first site
         getOnePassword("firstuser", "asdf!9", "amazon");
         // test all exceptions on this feature
-        testRetrieveFailCases();
+        testRetrieveExceptions();
 
         // update password for first site
         setOnePassword("firstuser", "asdf!9", "nordstrom");
         // test all exceptions on this feature
-        testUpdateFailCases();
+        testUpdateExceptions();
 
         // test that failed logins are erased upon successful login
         addOneUser("othello", "ASDFqwerty0#");
@@ -53,7 +53,7 @@ public class Driver {
         System.out.println("success -- UserLockedOutException does not occur!");
 	}
 
-    private static void testAddUserFailCases() {
+    private static void testAddUserExceptions() {
         System.out.println("\nExpected-Fail tests of addNewUser...");
         // catch InvalidUsernameException
         addOneUser("1234", "asdfasdf0&");
@@ -65,7 +65,7 @@ public class Driver {
         addOneUser("firstuser", "asdf!9");
     }
 
-    private static void testAddSiteFailCases() {
+    private static void testAddSiteExceptions() {
         System.out.println("\nExpected-Fail tests of addNewSite...");
         // catch DuplicateSiteException
         addOneSite("firstuser", "asdf!9", "amazon");
@@ -86,7 +86,7 @@ public class Driver {
         addOneSite("firstuser", "asdf!9", "abc123");
     }
 
-    private static void testRetrieveFailCases() {
+    private static void testRetrieveExceptions() {
         System.out.println("\nExpected-Fail tests of retrieveSitePassword ...");
         // catch SiteNotFoundException
         getOnePassword("firstuser", "asdf!9", "boogieman");
@@ -105,7 +105,7 @@ public class Driver {
         getOnePassword("thirduser", "wrongpw0#", "hotels");
     }
 
-    private static void testUpdateFailCases() {
+    private static void testUpdateExceptions() {
         System.out.println("\nExpected-Fail tests of updateSitePassword ...");
         // catch SiteNotFoundException
         setOnePassword("firstuser", "asdf!9", "hodor");
