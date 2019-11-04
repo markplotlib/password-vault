@@ -121,19 +121,19 @@ public class PasswordVault implements Vault {
             vaultKeyRing.get(username).containsKey(sitename))
         	throw new DuplicateSiteException();
         // user is locked out due to too many incorrect password attempts
-        if (failedLogins.get(username) >= 3)
+        if (failedLogins.get(username) >= MAX_LOGIN_ATTEMPTS)
     		throw new UserLockedOutException();
         // The password supplied does not match the user's vault password
-        if (!password.equals(vaultLogin.get(username))) {
+        if (!encryptor.encrypt(password).equals(vaultLogin.get(username))) {
             failedLogins.put(username, failedLogins.get(username) + 1);
             throw new PasswordMismatchException();
-        }
-        // The site name supplied is invalid
+        } // The site name supplied is invalid
         if (!sitename.matches(VALID_SITENAME))
             throw new InvalidSiteException();
 
         // generate unencrypted password
-        plaintextPassword = sitename + randNum + "!";
+        plaintextPassword = username.substring(0, 4) +
+        		sitename.substring(0, 4) + randNum + "!";
 
         // encrypt password
         encryptedPassword = encryptor.encrypt(plaintextPassword);
@@ -177,7 +177,7 @@ public class PasswordVault implements Vault {
 		if (!vaultKeyRing.get(username).containsKey(sitename))
             throw new SiteNotFoundException();
         // user is locked out due to too many incorrect password attempts
-        if (failedLogins.get(username) >= 3)
+        if (failedLogins.get(username) >= MAX_LOGIN_ATTEMPTS)
     		throw new UserLockedOutException();
         // The password supplied does not match the user's vault password
         if (!password.equals(vaultLogin.get(username))) {
@@ -222,7 +222,7 @@ public class PasswordVault implements Vault {
 		if (!vaultKeyRing.get(username).containsKey(sitename))
             throw new SiteNotFoundException();
         // user is locked out due to too many incorrect password attempts
-        if (failedLogins.get(username) >= 3)
+        if (failedLogins.get(username) >= MAX_LOGIN_ATTEMPTS)
     		throw new UserLockedOutException();
         // The password supplied does not match the user's vault password
         if (!password.equals(vaultLogin.get(username))) {
@@ -273,4 +273,6 @@ public class PasswordVault implements Vault {
     private final String VALID_SITENAME = "[a-z]{6,12}";
     private final String VALID_PASSWORD =
     		"((?=.*[a-zA-Z])(?=.*[\\d])(?=.*[!@#$%^&]).{6,15})";
+
+    private final int MAX_LOGIN_ATTEMPTS = 3;
 }

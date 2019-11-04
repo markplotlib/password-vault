@@ -35,16 +35,9 @@ public class Driver {
 
     private static void testAddSiteFailCases() {
         System.out.println("\nExpected-Fail tests of addNewSite...");
-
-        // catch
-//        addOneSite();
-
-        // catch
-//        addOneSite();
-
-        // catch
-//        addOneSite();
-
+        // catch ... addOneSite();
+        // catch ... addOneSite();
+        // catch ... addOneSite();
     }
 
 	private static void addOneUser(String username, String password) {
@@ -66,10 +59,7 @@ public class Driver {
     		String sitename) {
         String encryptedPassword;
         String caseNum = "case #" + ++testCaseCount;
-        System.out.printf(caseNum + ": Adding user = '%s',\tpassword = '%s'.\n",
-            username, password);
-
-        System.out.printf("    Adding site '%s' for user '%s' => ",
+        System.out.printf(caseNum + ": Adding site '%s' for user '%s' => ",
         		sitename, username);
         try {
 			encryptedPassword = vault.addNewSite(username, password, sitename);
@@ -84,6 +74,7 @@ public class Driver {
 			System.out.println();
 		}
     }
+
 
 	public static void main(String[] args) {
 
