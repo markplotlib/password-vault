@@ -35,9 +35,9 @@ public class Driver {
 
     private static void testAddSiteFailCases() {
         System.out.println("\nExpected-Fail tests of addNewSite...");
-        // catch ... addOneSite();
-        // catch ... addOneSite();
-        // catch ... addOneSite();
+        // catch DuplicateSiteException
+        addOneSite("firstuser", "asdf!9", "amazon");
+
     }
 
 	private static void addOneUser(String username, String password) {
@@ -86,7 +86,7 @@ public class Driver {
         addOneSite("firstuser", "asdf!9", "amazon");
         // add a second site, returning generated password
         addOneSite("firstuser", "asdf!9", "nordstrom");
-    // testAddSiteFailCases();
+    testAddSiteFailCases();
 
 /*
 

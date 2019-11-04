@@ -273,6 +273,5 @@ public class PasswordVault implements Vault {
     private final String VALID_SITENAME = "[a-z]{6,12}";
     private final String VALID_PASSWORD =
     		"((?=.*[a-zA-Z])(?=.*[\\d])(?=.*[!@#$%^&]).{6,15})";
-
     private final int MAX_LOGIN_ATTEMPTS = 3;
 }
