@@ -183,7 +183,7 @@ public class PasswordVault implements Vault {
         if (failedLogins.get(username) >= MAX_LOGIN_ATTEMPTS)
     		throw new UserLockedOutException();
         // The password supplied does not match the user's vault password
-        if (!password.equals(vaultLogin.get(username))) {
+        if (!encryptor.encrypt(password).equals(vaultLogin.get(username))) {
             failedLogins.put(username, failedLogins.get(username) + 1);
             throw new PasswordMismatchException();
         }

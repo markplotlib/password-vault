@@ -29,16 +29,9 @@ public class Driver {
         addOneSite("firstuser", "asdf!9", "nordstrom");
         testAddSiteFailCases();
 
-/*
         // retrieve password for first site
-        try {
-			getpw1 = vault.retrieveSitePassword("firstuser", "asdf!9",
-												"amazon");
-		} catch (SiteNotFoundException | UserNotFoundException |
-				 UserLockedOutException | PasswordMismatchException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
-	    System.out.println(getpw1);
+        getOnePassword("firstuser", "asdf!9", "amazon");
+/*
 
         // retrieve password for second site
         try {
@@ -256,7 +249,7 @@ public class Driver {
     }
 
     private static void addOneSite(String username, String password,
-            String sitename) {
+                                    String sitename) {
         String encryptedPassword;
         String caseNum = "case #" + ++testCaseCount;
         System.out.printf(caseNum + ": Adding site '%s' for user '%s' => ",
@@ -270,6 +263,26 @@ public class Driver {
                 | InvalidSiteException e) {
             System.err.println("Caught Exception (" + caseNum + "): "
                  + e.getMessage());
+        } finally {
+            System.out.println();
+        }
+    }
+
+    private static void getOnePassword(String username, String password,
+                                        String sitename) {
+        String encryptedPassword;
+        String caseNum = "case #" + ++testCaseCount;
+        System.out.printf(caseNum + ": Retrieving site password for '%s' " +
+            "for user '%s' => ", sitename, username);
+        try {
+            encryptedPassword = vault.retrieveSitePassword("firstuser",
+                                                    "asdf!9", "amazon");
+            System.out.printf("password: %s.\n", encryptedPassword);
+
+        } catch (SiteNotFoundException | UserNotFoundException |
+                 UserLockedOutException | PasswordMismatchException e) {
+             System.err.println("Caught Exception (" + caseNum + "): "
+                          + e.getMessage());
         } finally {
             System.out.println();
         }
