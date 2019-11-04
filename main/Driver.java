@@ -8,8 +8,8 @@ import vault.*;
 import exceptions.*;
 
 /**
- * Driver class demonstrates functionality and edge cases of PasswordVault
- * and CaesarCipher implementation files. Users can store login credentials
+ * Driver class demonstrates functionality and edge cases of PasswordVault.
+ * Users can store login credentials
  * for websites into a password protected system.
  *
  * @author mark chesney
@@ -18,20 +18,55 @@ import exceptions.*;
 public class Driver {
 
     static Vault vault = new PasswordVault();
-
+    private static int testCaseCount = 100;
 
 	private static void addOneUser(String username, String password) {
-        System.out.printf("    Adding: user = '%s',\tpassword = '%s'.\n",
+        String caseNum = "case #" + ++testCaseCount;
+        System.out.printf(caseNum + ": Adding user = '%s',\tpassword = '%s'.",
             username, password);
 	    try {
 			vault.addNewUser(username, password);
 		} catch (InvalidUsernameException | InvalidPasswordException |
 				 DuplicateUserException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
+			System.err.println("Caught Exception (" + caseNum + "): "
+				 + e.getMessage());
+		} finally {
+			System.out.println();
 		}
     }
 
-    private static void addOneSite(String username, String password) {
+    private static void addOneSite(String username, String password,
+    		String sitename) {
+        System.out.printf("case #%d: ", ++testCaseCount);
+        String encryptedPassword;
+        System.out.printf("    Adding site '%s' for user '%s' => ",
+        		sitename, username);
+        try {
+			encryptedPassword = vault.addNewSite(username, password, sitename);
+            System.out.printf("generating site password: %s.\n",
+                encryptedPassword);
+		} catch (DuplicateSiteException | UserNotFoundException
+				| UserLockedOutException | PasswordMismatchException
+				| InvalidSiteException e) {
+            System.err.println("Caught Exception: " + e.getMessage());
+		}
+    }
+
+    private static void testAddSite() {
+        System.out.println("\nExecuting tests of addNewSite...");
+        // add the first new user, setting password
+        addOneSite("firstuser", "asdf!9", "amazon");
+
+        // add a second site, returning generated password
+
+        // catch
+//        addOneSite();
+
+        // catch
+//        addOneSite();
+
+        // catch
+//        addOneSite();
 
     }
 
@@ -44,85 +79,20 @@ public class Driver {
         addOneUser("1234", "asdfasdf0&");
 
         // catch InvalidPasswordException
-        addOneUser("userjoebob", "ok");
+       addOneUser("userjoebob", "ok");
 
         // catch DuplicateUserException
-        addOneUser("firstuser", "asdf!9");
+       addOneUser("firstuser", "asdf!9");
 
     }
 
 	public static void main(String[] args) {
 
-        // testAddUser();
-
-        // Strings for password testing
-	    // String pw1 = null, pw2 = null, getpw1 = null, getpw2 = null;
-	    // String newpw1 = null;
-        // String pw1a = null, pw2a = null;
-
-
-
-
-        System.out.println("\nExecuting tests of addNewSite...");
-        // add the first new user, setting password
+        testAddUser();
+        testAddSite();
 
 /*
-        // add new site, returning generated password
-	    try {
-			pw1 = vault.addNewSite("firstuser", "asdf!9", "amazon");
-		} catch (DuplicateSiteException | UserNotFoundException |
-				 UserLockedOutException | PasswordMismatchException
-				| InvalidSiteException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
 
-        // fail: try to add same site again
-	    try {
-			pw1 = vault.addNewSite("firstuser", "asdf!9", "amazon");
-		} catch (DuplicateSiteException | UserNotFoundException |
-				 UserLockedOutException | PasswordMismatchException
-				| InvalidSiteException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
-
-        // fail: add site for non-existant user
-	    try {
-			pw1 = vault.addNewSite("userhenryphilip", "qwert123#$%", "rei");
-		} catch (DuplicateSiteException | UserNotFoundException |
-				 UserLockedOutException | PasswordMismatchException
-				| InvalidSiteException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
-
-        // add a second site, returning generated password
-	    try {
-			pw2 = vault.addNewSite("firstuser", "asdf!9", "nordstrom");
-		} catch (DuplicateSiteException | UserNotFoundException |
-				 UserLockedOutException | PasswordMismatchException
-				| InvalidSiteException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
-
-        // fail: wrong password
-	    try {
-			pw2 = vault.addNewSite("firstuser", "tokyo123!@#", "rakuten");
-		} catch (DuplicateSiteException | UserNotFoundException |
-				 UserLockedOutException | PasswordMismatchException
-				| InvalidSiteException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
-
-        // fail: invalid site name
-	    try {
-			pw2 = vault.addNewSite("firstuser", "asdf!9", "abc123");
-		} catch (DuplicateSiteException | UserNotFoundException |
-				 UserLockedOutException | PasswordMismatchException
-				| InvalidSiteException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
-
-	    System.out.println(pw1);
-	    System.out.println(pw2);
 
         // retrieve password for first site
         try {
