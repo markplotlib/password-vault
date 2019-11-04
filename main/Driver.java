@@ -38,6 +38,17 @@ public class Driver {
         // catch DuplicateSiteException
         addOneSite("firstuser", "asdf!9", "amazon");
 
+        // catch UserNotFoundException
+        addOneSite("userhenryphilip", "qwert123#$%", "rei");
+
+        // catch UserLockedOutException
+///////////////////
+
+        // catch PasswordMismatchException
+        addOneSite("firstuser", "tokyo123!@#", "rakuten");
+
+        // catch InvalidSiteException
+        addOneSite("firstuser", "asdf!9", "abc123");
     }
 
 	private static void addOneUser(String username, String password) {
