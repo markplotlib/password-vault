@@ -71,8 +71,8 @@ public class PasswordVault implements Vault {
         // add new user to vaultKeyRing
         vaultKeyRing.put(username, null);
 
-        // add new user and password to vaultLogin
-        vaultLogin.put(username, password);
+        // add new user and ENCRYPTED password to vaultLogin
+        vaultLogin.put(username, encryptor.encrypt(password));
 
         // set counter of login attempts to zero
         failedLogins.put(username, 0);
