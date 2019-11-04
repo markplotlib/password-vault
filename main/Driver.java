@@ -21,7 +21,7 @@ public class Driver {
 
 
 	public static void testAddUser(String username, String password) {
-        System.out.printf("Adding: user = '%s',\tpassword = '%s'.\n",
+        System.out.printf("    Adding: user = '%s',\tpassword = '%s'.\n",
             username, password);
 	    try {
 			vault.addNewUser(username, password);
@@ -38,6 +38,7 @@ public class Driver {
 	    // String newpw1 = null;
         // String pw1a = null, pw2a = null;
 
+        System.out.println("Executing tests of addNewUser...");
         // add the first new user, setting password
         testAddUser( "firstuser", "asdf!9" );
 
@@ -45,7 +46,7 @@ public class Driver {
         testAddUser("1234", "asdfasdf0&");
 
         // catch InvalidPasswordException
-       testAddUser("userjoebob", "ok");
+        testAddUser("userjoebob", "ok");
 
         // catch DuplicateUserException
 		testAddUser("firstuser", "asdf!9");
