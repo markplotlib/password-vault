@@ -44,13 +44,13 @@ public class Driver {
         // test that failed logins are erased upon successful login
         addOneUser("othello", "ASDFqwerty0#");
         addOneSite("othello", "ASDFqwerty0#", "hotels");
-        setOnePassword("othello", "wrongpw0#", "hotels");
-        setOnePassword("othello", "wrongpw0#", "hotels");
+        getOnePassword("othello", "wrongpw0#", "hotels");
+        getOnePassword("othello", "wrongpw0#", "hotels");
         // This next attempt will reset the count to zero.
-        setOnePassword("othello", "ASDFqwerty0#", "hotels");
-        setOnePassword("othello", "wrongpw0#", "hotels");
-        setOnePassword("othello", "wrongpw0#", "hotels");
-        // success -- UserLockedOutException does not occur.
+        getOnePassword("othello", "ASDFqwerty0#", "hotels");
+        getOnePassword("othello", "wrongpw0#", "hotels");
+        getOnePassword("othello", "wrongpw0#", "hotels");
+        System.out.println("success -- UserLockedOutException does not occur!");
 	}
 
     private static void testAddUserFailCases() {
@@ -182,12 +182,12 @@ public class Driver {
                                         String sitename) {
         String encryptedPassword;
         String caseNum = "case #" + ++testCaseCount;
-        System.out.printf(caseNum + ": Retrieving site password for '%s' " +
+        System.out.printf(caseNum + ": Updating site password for '%s' " +
             "for user '%s' => ", sitename, username);
         try {
-            encryptedPassword = vault.retrieveSitePassword(username, password,
+            encryptedPassword = vault.updateSitePassword(username, password,
                                                             sitename);
-            System.out.printf("password: %s.\n", encryptedPassword);
+            System.out.printf("new password: %s.\n", encryptedPassword);
         } catch (SiteNotFoundException | UserNotFoundException |
                  UserLockedOutException | PasswordMismatchException e) {
              System.err.println("Caught Exception (" + caseNum + "): "
