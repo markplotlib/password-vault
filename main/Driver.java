@@ -17,6 +17,10 @@ import exceptions.*;
  */
 public class Driver {
 
+	// public static void testAddUser() {
+    //
+    // }
+    
 	public static void main(String[] args) {
 
 	    Vault vault = new PasswordVault();
@@ -25,26 +29,21 @@ public class Driver {
 	    String newpw1 = null;
         String pw1a = null, pw2a = null;
 
-        String username = "firstuser";
-        System.out.printf("Added user '%s'", username);
-
         // add the first new user, setting password
+        String username = "firstuser";
+        String password = "asdf!9";
+
+        // testAddUser()
+
+        System.out.printf("Added user '%s'\n", username);
 	    try {
-			vault.addNewUser(username, "asdf!9");
-		} catch (InvalidUsernameException | InvalidPasswordException |
-				 DuplicateUserException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
-/*
-        // fail: try to add the first user, who's already in there
-	    try {
-			vault.addNewUser("firstuser", "asdf!9");
+			vault.addNewUser(username, password);
 		} catch (InvalidUsernameException | InvalidPasswordException |
 				 DuplicateUserException e) {
 			System.err.println("Caught Exception: " + e.getMessage());
 		}
 
-        // fail: try to add an invalid user name
+        // catch InvalidUsernameException
 	    try {
 			vault.addNewUser("1234", "asdfasdf0&");
 		} catch (InvalidUsernameException | InvalidPasswordException |
@@ -52,7 +51,7 @@ public class Driver {
 			System.err.println("Caught Exception: " + e.getMessage());
 		}
 
-        // fail: try to add an invalid password
+        // catch InvalidPasswordException
 	    try {
 			vault.addNewUser("userjoebob", "ok");
 		} catch (InvalidUsernameException | InvalidPasswordException |
@@ -60,6 +59,15 @@ public class Driver {
 			System.err.println("Caught Exception: " + e.getMessage());
 		}
 
+        // catch DuplicateUserException
+	    try {
+			vault.addNewUser("firstuser", "asdf!9");
+		} catch (InvalidUsernameException | InvalidPasswordException |
+				 DuplicateUserException e) {
+			System.err.println("Caught Exception: " + e.getMessage());
+		}
+
+/*
         // add new site, returning generated password
 	    try {
 			pw1 = vault.addNewSite("firstuser", "asdf!9", "amazon");
