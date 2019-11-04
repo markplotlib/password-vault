@@ -40,6 +40,16 @@ public class Driver {
         setOnePassword("firstuser", "asdf!9", "nordstrom");
         // test all exceptions on this feature
         testUpdateFailCases();
+
+        // test that failed logins are erased upon successful login
+        addOneUser("othello", "ASDFqwerty0#");
+        addOneSite("othello", "ASDFqwerty0#", "hotels");
+        setOnePassword("othello", "wrongpw0#", "hotels");
+        setOnePassword("othello", "wrongpw0#", "hotels");
+        setOnePassword("othello", "ASDFqwerty0#", "hotels");
+        setOnePassword("othello", "wrongpw0#", "hotels");
+        setOnePassword("othello", "wrongpw0#", "hotels");
+        // success -- UserLockedOutException does not occur.
 	}
 
     private static void testAddUserFailCases() {
