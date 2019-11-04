@@ -131,6 +131,9 @@ public class PasswordVault implements Vault {
         if (!sitename.matches(VALID_SITENAME))
             throw new InvalidSiteException();
 
+        // reset counter of login attempts to zero (in case it were > 0)
+        failedLogins.put(username, 0);
+
         // generate unencrypted password
         plaintextPassword = username.substring(0, 4) +
         		sitename.substring(0, 4) + randNum + "!";
@@ -185,6 +188,9 @@ public class PasswordVault implements Vault {
             throw new PasswordMismatchException();
         }
 
+        // reset counter of login attempts to zero (in case it were > 0)
+        failedLogins.put(username, 0);
+
         // return plain-text (unencrypted) password
         return encryptor.decrypt(vaultKeyRing.get(username).get(sitename));
 	}
@@ -229,6 +235,9 @@ public class PasswordVault implements Vault {
             failedLogins.put(username, failedLogins.get(username) + 1);
             throw new PasswordMismatchException();
         }
+
+        // reset counter of login attempts to zero (in case it were > 0)
+        failedLogins.put(username, 0);
 
         // get plain-text (unencrypted) password
         plaintextPassword = encryptor.decrypt(

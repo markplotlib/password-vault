@@ -41,11 +41,14 @@ public class Driver {
         // catch UserNotFoundException
         addOneSite("userhenryphilip", "qwert123#$%", "rei");
 
-        // catch UserLockedOutException
-///////////////////
-
         // catch PasswordMismatchException
-        addOneSite("firstuser", "tokyo123!@#", "rakuten");
+        addOneUser("seconduser", "ASDFqwerty0#");
+        addOneSite("seconduser", "wrongpw0#", "hotels");
+
+        // catch UserLockedOutException
+        addOneSite("seconduser", "wrongpw0#", "hotels");
+        addOneSite("seconduser", "wrongpw0#", "hotels");
+        addOneSite("seconduser", "wrongpw0#", "hotels");
 
         // catch InvalidSiteException
         addOneSite("firstuser", "asdf!9", "abc123");
