@@ -17,24 +17,10 @@ import exceptions.*;
  */
 public class Driver {
 
-	// public static void testAddUser() {
-    //
-    // }
-    
-	public static void main(String[] args) {
+    static Vault vault = new PasswordVault();
 
-	    Vault vault = new PasswordVault();
-        // Strings for password testing
-	    String pw1 = null, pw2 = null, getpw1 = null, getpw2 = null;
-	    String newpw1 = null;
-        String pw1a = null, pw2a = null;
 
-        // add the first new user, setting password
-        String username = "firstuser";
-        String password = "asdf!9";
-
-        // testAddUser()
-
+	public static void testAddUser(String username, String password) {
         System.out.printf("Added user '%s'\n", username);
 	    try {
 			vault.addNewUser(username, password);
@@ -42,6 +28,17 @@ public class Driver {
 				 DuplicateUserException e) {
 			System.err.println("Caught Exception: " + e.getMessage());
 		}
+    }
+
+	public static void main(String[] args) {
+
+        // Strings for password testing
+	    String pw1 = null, pw2 = null, getpw1 = null, getpw2 = null;
+	    String newpw1 = null;
+        String pw1a = null, pw2a = null;
+
+        // add the first new user, setting password
+        testAddUser( "firstuser", "asdf!9" );
 
         // catch InvalidUsernameException
 	    try {
