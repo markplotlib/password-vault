@@ -275,10 +275,9 @@ public class Driver {
         System.out.printf(caseNum + ": Retrieving site password for '%s' " +
             "for user '%s' => ", sitename, username);
         try {
-            encryptedPassword = vault.retrieveSitePassword("firstuser",
-                                                    "asdf!9", "amazon");
+            encryptedPassword = vault.retrieveSitePassword(username, password,
+                                                            sitename);
             System.out.printf("password: %s.\n", encryptedPassword);
-
         } catch (SiteNotFoundException | UserNotFoundException |
                  UserLockedOutException | PasswordMismatchException e) {
              System.err.println("Caught Exception (" + caseNum + "): "
