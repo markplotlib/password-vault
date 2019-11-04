@@ -31,38 +31,9 @@ public class Driver {
 
         // retrieve password for first site
         getOnePassword("firstuser", "asdf!9", "amazon");
+        testRetrieveFailCases();
+        
 /*
-
-        // retrieve password for second site
-        try {
-			getpw2 = vault.retrieveSitePassword("firstuser", "asdf!9",
-												"nordstrom");
-		} catch (SiteNotFoundException | UserNotFoundException |
-				 UserLockedOutException | PasswordMismatchException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
-	    System.out.println(getpw2);
-
-        // fail: this site has not been stored
-        try {
-			getpw2 = vault.retrieveSitePassword("firstuser", "asdf!9",
-												"easterbunny");
-		} catch (SiteNotFoundException | UserNotFoundException |
-				 UserLockedOutException | PasswordMismatchException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
-	    System.out.println(getpw2);
-
-        // fail: user not found
-        try {
-			getpw2 = vault.retrieveSitePassword("chickenuser", "poiuyt!9",
-												"duckduckgo");
-		} catch (SiteNotFoundException | UserNotFoundException |
-				 UserLockedOutException | PasswordMismatchException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
-	    System.out.println(getpw2);
-
         // update password for second site
 	    try {
 			newpw1 = vault.updateSitePassword("firstuser", "asdf!9",
@@ -100,32 +71,8 @@ public class Driver {
 
         System.out.println(pw1a);
 
-        // 1st failed attempt at logging in
-        try {
-            pw2a = vault.retrieveSitePassword("seconduser", "ASDFqwerty0#",
-        									  "hotels");
-		} catch (SiteNotFoundException | UserNotFoundException |
-				 UserLockedOutException | PasswordMismatchException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
 
-        // 2nd failed attempt at logging in
-        try {
-            pw2a = vault.retrieveSitePassword("seconduser", "ASDFqwerty0#",
-        									  "hotels");
-		} catch (SiteNotFoundException | UserNotFoundException |
-				 UserLockedOutException | PasswordMismatchException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
 
-        // 3rd failed attempt -- user should be locked out
-        try {
-            pw2a = vault.retrieveSitePassword("seconduser", "ASDFqwerty0#",
-        									  "hotels");
-		} catch (SiteNotFoundException | UserNotFoundException |
-				 UserLockedOutException | PasswordMismatchException e) {
-			System.err.println("Caught Exception: " + e.getMessage());
-		}
 
         // fail: second user locked out from adding new site
 	    try {
