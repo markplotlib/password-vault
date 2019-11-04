@@ -21,18 +21,25 @@ public class Driver {
 
         // add the first new user, setting password
         addOneUser( "firstuser", "asdf!9" );
+        // test all exceptions on this feature
         testAddUserFailCases();
 
         // add a first site, returning generated password
         addOneSite("firstuser", "asdf!9", "amazon");
         // repeat for another
         addOneSite("firstuser", "asdf!9", "nordstrom");
+        // test all exceptions on this feature
         testAddSiteFailCases();
 
         // retrieve password for first site
         getOnePassword("firstuser", "asdf!9", "amazon");
+        // test all exceptions on this feature
         testRetrieveFailCases();
 
+        // update password for first site
+        setOnePassword("firstuser", "asdf!9", "nordstrom");
+        // test all exceptions on this feature
+        testUpdateFailCases();
 	}
 
     private static void testAddUserFailCases() {
